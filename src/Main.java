@@ -1,9 +1,7 @@
-import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
         TaskManager manager = new TaskManager();
 
@@ -12,9 +10,9 @@ public class Main {
         Task task2 = new Task("Сходить в магазин", "Купить продуктов");
         Task task3 = new Task("Выпить кофе", "Сходить в кофейню на районе");
         Task task4 = new Task("Купить Полку", "Зайти в леруа и выбрать полку для кухни");
-        Task task5 = new Task("Купить Полку", "Зайти в леруа и выбрать полку для кухни");
 
-        //manager.addTask(new Task(scanner.nextLine(), scanner.nextLine()));
+
+
         manager.addTask(task1);
         manager.addTask(task3);
 
@@ -42,6 +40,7 @@ public class Main {
         //manager.updateTask(909976286, new Task(null,null,Status.IN_PROGRESS));
         manager.updateTask(909976286, new Task(Status.DONE));
         //manager.updateTask(968457343, new Task("","",Status.IN_PROGRESS));
+        System.out.println(manager.getKey(-1228530043));
 
         manager.printAllTasks();
 
