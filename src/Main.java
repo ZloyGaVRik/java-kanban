@@ -1,6 +1,5 @@
-package TaskManager;
-
 import Task.*;
+import TaskManager.TaskManager;
 
 public class Main {
 
