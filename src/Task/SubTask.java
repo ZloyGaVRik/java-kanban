@@ -1,5 +1,7 @@
-public class SubTask extends Task{
-    protected Integer epicTaskId;
+package Task;
+
+public class SubTask extends Task {
+    public Integer epicTaskId;
 
     public SubTask(String name, String description) {
         super(name, description);
@@ -14,9 +16,13 @@ public class SubTask extends Task{
         this.setStatus(status);
     }
 
+    public int getEpicTaskId(){
+        return epicTaskId;
+    }
+
     @Override
     public String toString() {
-        return "TaskManager.SubTask{" +
+        return "TaskManager.TaskManager.Task.Task.SubTask{" +
                 "status=" + getStatus() +
                 ", typeTask=" + typeTask +
                 ", name='" + getName() + '\'' +

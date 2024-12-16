@@ -1,10 +1,11 @@
+package Task;
 
 public class Task {
     private Status status = Status.NEW;
     protected TaskType typeTask;
     private String name;
     private String description;
-    protected Integer taskId;
+    public Integer taskId;
 
     public Task(String name, String description)
     {
@@ -86,7 +87,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "TaskManager.Task{" +
+        return "TaskManager.TaskManager.Task.Task{" +
                 "status=" + status +
                 ", typeTask=" + typeTask +
                 ", name='" + name + '\'' +
