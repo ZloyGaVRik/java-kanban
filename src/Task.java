@@ -1,25 +1,34 @@
 
-
 public class Task {
     private Status status = Status.NEW;
-    private TaskType typeTask = TaskType.TASK;
+    protected TaskType typeTask;
     private String name;
     private String description;
-    int taskID;
+    protected Integer taskId;
 
     public Task(String name, String description)
     {
         this.name = name;
         this.description = description;
-        this.taskID = setID(name, description);
+        this.taskId = setId(name, description);
+        this.typeTask = TaskType.TASK;
     }
+
+    public Task(String name, String description, Status status)
+    {
+        this.name = name;
+        this.description = description;
+        this.taskId = setId(name, description);
+        this.typeTask = TaskType.TASK;
+        this.status = status;
+    }
+
+
 
     public Task(Status status)
     {
         this.status = status;
-
     }
-
 
 
     public Status getStatus() {
@@ -55,10 +64,11 @@ public class Task {
     }
 
     public int getId() {
-        return taskID;
+        return taskId;
     }
 
-    public int setID(String name, String description) {
+
+    public int setId(String name, String description) {
         int hash = 17;
         if (name != null) {
             hash = hash + name.hashCode();
@@ -81,7 +91,7 @@ public class Task {
                 ", typeTask=" + typeTask +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", id=" + taskID +
+                ", id=" + taskId +
                 '}';
     }
 
