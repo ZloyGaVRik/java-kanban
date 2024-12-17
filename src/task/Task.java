@@ -1,25 +1,27 @@
-package Task;
+package task;
+
+import java.util.Objects;
 
 public class Task {
     private Status status = Status.NEW;
     protected TaskType typeTask;
     private String name;
     private String description;
-    public Integer taskId;
+    private Integer taskId;
 
-    public Task(String name, String description)
+    public Task(Integer taskId, String name, String description)
     {
+        this.taskId = taskId;
         this.name = name;
         this.description = description;
-        this.taskId = setId(name, description);
         this.typeTask = TaskType.TASK;
     }
 
-    public Task(String name, String description, Status status)
+    public Task(Integer taskId, String name, String description, Status status)
     {
+        this.taskId = taskId;
         this.name = name;
         this.description = description;
-        this.taskId = setId(name, description);
         this.typeTask = TaskType.TASK;
         this.status = status;
     }
@@ -64,36 +66,24 @@ public class Task {
         this.description = description;
     }
 
-    public int getId() {
+    public Integer getId() {
         return taskId;
     }
 
-
-    public int setId(String name, String description) {
-        int hash = 17;
-        if (name != null) {
-            hash = hash + name.hashCode();
-        }
-        hash = hash * 31;
-
-        if (description != null) {
-            hash = hash + description.hashCode();
-        } else {
-            hash = hash * 31;
-        }
-
-        return hash;
+    public void setId(int taskId) {
+        this.taskId = taskId;
     }
 
     @Override
     public String toString() {
-        return "TaskManager.TaskManager.Task.Task{" +
+        return "taskManager.TaskManager.task.Task{" +
                 "status=" + status +
                 ", typeTask=" + typeTask +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", id=" + taskId +
+                ", id=" + getId() +
                 '}';
     }
+
 
 }

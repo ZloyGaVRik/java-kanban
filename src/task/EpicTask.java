@@ -1,13 +1,12 @@
-package Task;
+package task;
 
 import java.util.ArrayList;
 
 public class EpicTask extends Task {
     public ArrayList<Integer> subTasksId;
 
-    public EpicTask(String name, String description) {
-        super(name, description);
-        this.taskId = setId(name, description);
+    public EpicTask(Integer taskId, String name, String description) {
+        super(taskId, name, description);
         this.typeTask = TaskType.EPIC;
         this.subTasksId = new ArrayList<>();
 
@@ -16,12 +15,12 @@ public class EpicTask extends Task {
 
     @Override
     public String toString() {
-        return "TaskManager.TaskManager.Task.Task.EpicTask{" +
+        return "taskManager.TaskManager.task.Task.EpicTask{" +
                 "status=" + getStatus() +
                 ", typeTask=" + typeTask +
                 ", name='" + getName() + '\'' +
                 ", description='" + getDescription() + '\'' +
-                ", id=" + taskId +
+                ", id=" + getId() +
                 ", subTaskId=" + subTasksId +
                 '}';
     }
