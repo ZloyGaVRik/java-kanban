@@ -19,7 +19,7 @@ public class Main {
 
         SubTask updateTask1 = new SubTask(4,null,null, Status.IN_PROGRESS);
         SubTask updateTask2 = new SubTask(5,null,null, Status.IN_PROGRESS);
-        SubTask updateTask3 = new SubTask(6,null,null, Status.DONE);
+        SubTask updateTask3 = new SubTask(6,null,null, Status.IN_PROGRESS);
         SubTask updateTask4 = new SubTask(7,null,null, Status.DONE);
         EpicTask updateTask5 = new EpicTask(3,null,"Зайти в магазин по дороге на работу");
         Task updateTask6 = new Task(1                                                                                                                                                                                                                 ,null,null, Status.DONE);
@@ -53,8 +53,8 @@ public class Main {
         manager.printAllEpicTask();
         manager.printAllSubTask();
 
-        manager.deleteEpicTaskById(epicTask2.getId());
-        manager.deleteTaskById(task1.getId());
+        //manager.deleteEpicTaskById(epicTask2.getId());
+        //manager.deleteTaskById(task1.getId());
         manager.deleteSubTaskById(subTask3.getId());
         System.out.println("Задачи удалены");
 
@@ -62,14 +62,14 @@ public class Main {
         manager.printAllEpicTask();
         manager.printAllSubTask();
 
-        manager.deleteAllEpicTasks();
-        manager.deleteAllTasks();
-        manager.deleteAllSubTasks();
+        //manager.deleteAllEpicTasks();
+        //manager.deleteAllTasks();
+        //manager.deleteAllSubTasks();
         System.out.println("Все задачи удалены");
 
-        manager.printAllTask();
-        manager.printAllEpicTask();
-        manager.printAllSubTask();
+        //manager.printAllTask();
+        //manager.printAllEpicTask();
+        //manager.printAllSubTask();
 
 
 

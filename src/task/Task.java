@@ -5,10 +5,11 @@ import java.util.Objects;
 public class Task {
     private Status status = Status.NEW;
     protected TaskType typeTask;
+
     private String name;
+
     private String description;
     private Integer taskId;
-
     public Task(Integer taskId, String name, String description)
     {
         this.taskId = taskId;

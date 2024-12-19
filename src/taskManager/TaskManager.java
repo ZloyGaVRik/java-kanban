@@ -4,6 +4,7 @@ import task.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class TaskManager {
     public HashMap<Integer, Task> tasks;
@@ -81,43 +82,48 @@ public class TaskManager {
     public void updateTask(Task updateTask) {
         if (tasks.containsKey(updateTask.getId())) {
             Task task = tasks.get(updateTask.getId());
-            task.setName(updateTask.getName());
+            if (updateTask.getName() != null) {
+                task.setName(updateTask.getName());
+            }
             task.setDescription(updateTask.getDescription());
             task.setStatus(updateTask.getStatus());
         }
-
     }
 
     public void updateEpicTask(Task updateEpicTask) {
         if (epicTasks.containsKey(updateEpicTask.getId())) {
             EpicTask epicTask = epicTasks.get(updateEpicTask.getId());
-            epicTask.setName(updateEpicTask.getName());
+            if (updateEpicTask.getName() != null) {
+                epicTask.setName(updateEpicTask.getName());
+            }
             epicTask.setDescription(updateEpicTask.getDescription());
         }
-
     }
 
     public void updateSubTask(Task updateSubTask) {
         if (subTasks.containsKey(updateSubTask.getId())) {
             SubTask subTask = subTasks.get(updateSubTask.getId());
-            subTask.setName(updateSubTask.getName());
+            if (updateSubTask.getName() != null) {
+                subTask.setName(updateSubTask.getName());
+            }
             subTask.setDescription(updateSubTask.getDescription());
             subTask.setStatus(updateSubTask.getStatus());
-            checkEpicTaskStatus(subTask);
+            checkEpicTaskStatus(subTask.getEpicTaskId());
         }
-
     }
 
-    private void checkEpicTaskStatus(SubTask subTask) {
-        EpicTask epicTask = getEpicTaskByID(subTask.epicTaskId);
+    private void checkEpicTaskStatus(Integer epicTaskId) {
+        EpicTask epicTask = getEpicTaskByID(epicTaskId);
 
         int countStatusInProgress = 0;
         int countStatusDone = 0;
         for (Integer value : epicTask.subTasksId) {
-            if (subTasks.get(value).getStatus().equals(Status.IN_PROGRESS)){
-                countStatusInProgress++;
-            } else if (subTasks.get(value).getStatus().equals(Status.DONE)) {
-                countStatusDone++;
+            if (subTasks.get(value) != null) {
+                if (subTasks.get(value).getStatus().equals(Status.IN_PROGRESS)){
+                    countStatusInProgress++;
+                } else if (subTasks.get(value).getStatus().equals(Status.DONE)) {
+                    countStatusDone++;
+                }
             }
         }
         if (countStatusInProgress > 0 ||  countStatusDone > 0) {
@@ -125,6 +131,9 @@ public class TaskManager {
         }
         if (countStatusDone == epicTask.subTasksId.size()){
             epicTask.setStatus(Status.DONE);
+        }
+        if (countStatusInProgress == 0 && countStatusDone == 0) {
+            epicTask.setStatus(Status.NEW);
         }
     }
 
@@ -134,22 +143,39 @@ public class TaskManager {
     }
 
     public void deleteEpicTaskById(Integer taskId) {
+        for (Integer value : getEpicTaskByID(taskId).subTasksId) {
+            subTasks.remove(value);
+        }
         epicTasks.remove(taskId);
     }
 
-    public void deleteSubTaskById(Integer taskId) {
-        subTasks.remove(taskId);
+    public void deleteSubTaskById(Integer subTaskId) {
+        Integer epicTaskId = getSubTaskByID(subTaskId).epicTaskId;
+        subTasks.remove(subTaskId);
+        for (Integer value : getEpicTaskByID(epicTaskId).subTasksId) {
+            if (Objects.equals(value, subTaskId)) {
+                getEpicTaskByID(epicTaskId).subTasksId.remove(value);
+            }
+        }
+        checkEpicTaskStatus(epicTaskId);
     }
 
 
     public void deleteAllTasks() {
         tasks.clear();
     }
+
     public void deleteAllEpicTasks() {
         epicTasks.clear();
+        subTasks.clear();
     }
+
     public void deleteAllSubTasks() {
         subTasks.clear();
+        for (Integer value : epicTasks.keySet()){
+            getEpicTaskByID(value).subTasksId.clear();
+            checkEpicTaskStatus(value);
+        }
     }
 
     public void printEpicALlSubTask(int taskId) {
